@@ -14,6 +14,159 @@ export type Database = {
   }
   public: {
     Tables: {
+      enterprises: {
+        Row: {
+          business_type: string
+          contact_info: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          owner_name: string
+          registration_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_type: string
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          owner_name: string
+          registration_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_type?: string
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          owner_name?: string
+          registration_number?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      laws: {
+        Row: {
+          created_at: string
+          id: string
+          link: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          link: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          link?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lawyers_registry: {
+        Row: {
+          contact_info: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          license_number: string
+          name: string
+          specialization: string | null
+          updated_at: string
+        }
+        Insert: {
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          license_number: string
+          name: string
+          specialization?: string | null
+          updated_at?: string
+        }
+        Update: {
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          license_number?: string
+          name?: string
+          specialization?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      leadership: {
+        Row: {
+          bio: string | null
+          created_at: string
+          id: string
+          name: string
+          order_index: number
+          photo_url: string | null
+          position: string
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          order_index?: number
+          photo_url?: string | null
+          position: string
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          order_index?: number
+          photo_url?: string | null
+          position?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      legal_school: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          link: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -44,15 +197,172 @@ export type Database = {
         }
         Relationships: []
       }
+      statistics: {
+        Row: {
+          active_tenders_count: number
+          id: string
+          laws_count: number
+          school_topics_count: number
+          staff_count: number
+          updated_at: string
+        }
+        Insert: {
+          active_tenders_count?: number
+          id?: string
+          laws_count?: number
+          school_topics_count?: number
+          staff_count?: number
+          updated_at?: string
+        }
+        Update: {
+          active_tenders_count?: number
+          id?: string
+          laws_count?: number
+          school_topics_count?: number
+          staff_count?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tender_form_questions: {
+        Row: {
+          created_at: string
+          id: string
+          is_required: boolean
+          options: string[] | null
+          order_index: number
+          question: string
+          question_type: string
+          tender_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_required?: boolean
+          options?: string[] | null
+          order_index?: number
+          question: string
+          question_type?: string
+          tender_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_required?: boolean
+          options?: string[] | null
+          order_index?: number
+          question?: string
+          question_type?: string
+          tender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tender_form_questions_tender_id_fkey"
+            columns: ["tender_id"]
+            isOneToOne: false
+            referencedRelation: "tenders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tender_form_responses: {
+        Row: {
+          id: string
+          responses: Json
+          submitted_at: string
+          tender_id: string
+          user_id: string | null
+        }
+        Insert: {
+          id?: string
+          responses: Json
+          submitted_at?: string
+          tender_id: string
+          user_id?: string | null
+        }
+        Update: {
+          id?: string
+          responses?: Json
+          submitted_at?: string
+          tender_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tender_form_responses_tender_id_fkey"
+            columns: ["tender_id"]
+            isOneToOne: false
+            referencedRelation: "tenders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tenders: {
+        Row: {
+          content: string
+          created_at: string
+          has_form: boolean
+          id: string
+          is_active: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          has_form?: boolean
+          id?: string
+          is_active?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          has_form?: boolean
+          id?: string
+          is_active?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "license_manager" | "law_manager"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -179,6 +489,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "license_manager", "law_manager"],
+    },
   },
 } as const
