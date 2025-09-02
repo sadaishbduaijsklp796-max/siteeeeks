@@ -77,7 +77,10 @@ export default {
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        sm: 'calc(var(--radius) - 4px)',
+        xl: '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem'
       },
       keyframes: {
         'accordion-down': {
@@ -108,10 +111,6 @@ export default {
           "0%": { transform: "translateY(20px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" }
         },
-        "glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(var(--primary-glow) / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(var(--primary-glow) / 0.6)" }
-        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -119,7 +118,6 @@ export default {
         "fade-in": "fade-in 0.5s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "slide-up": "slide-up 0.4s ease-out",
-        "glow": "glow 2s ease-in-out infinite",
       },
       transitionProperty: {
         'smooth': 'var(--transition-smooth)',

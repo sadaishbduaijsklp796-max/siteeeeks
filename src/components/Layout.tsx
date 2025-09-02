@@ -42,31 +42,31 @@ export const Layout = ({ children }: LayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
+      <header className="border-b border-gray-200/50 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/80">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl flex items-center justify-center shadow-soft">
                 <Scale className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-gray-800">
                 ВРУ
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-1">
+            <nav className="hidden md:flex items-center space-x-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                       isActive(item.href)
-                        ? 'bg-primary text-primary-foreground shadow-soft'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                        ? 'bg-gray-800 text-white shadow-medium'
+                        : 'text-gray-600 hover:text-gray-800 hover:bg-white/60 hover:shadow-soft'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -81,20 +81,20 @@ export const Layout = ({ children }: LayoutProps) => {
                 <>
                   {(isAdmin() || canManageTenders() || canManageLegal()) && (
                     <Link to="/admin">
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="rounded-full bg-white/60 border-gray-200/50 hover:bg-white/80 hover:shadow-soft">
                         <Settings className="w-4 h-4 mr-2" />
                         Адмін
                       </Button>
                     </Link>
                   )}
-                  <Button onClick={handleSignOut} variant="outline" size="sm">
+                  <Button onClick={handleSignOut} variant="outline" size="sm" className="rounded-full bg-white/60 border-gray-200/50 hover:bg-white/80 hover:shadow-soft">
                     <LogOut className="w-4 h-4 mr-2" />
                     Вийти
                   </Button>
                 </>
               ) : (
                 <Link to="/auth">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="rounded-full bg-white/60 border-gray-200/50 hover:bg-white/80 hover:shadow-soft">
                     <LogIn className="w-4 h-4 mr-2" />
                     Увійти
                   </Button>
@@ -111,7 +111,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-card/30 py-8">
+      <footer className="border-t border-gray-200/50 bg-white/50 py-8">
         <div className="container mx-auto px-4">
           <div className="text-center text-sm text-muted-foreground">
             <p>&copy; 2024 Верховна Рада України. Всі права захищені.</p>
