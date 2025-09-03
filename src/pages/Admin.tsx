@@ -80,27 +80,27 @@ const Admin = () => {
         <Card className="clean-card scale-in">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-1 h-auto p-2 bg-gray-50/50">
-                <TabsTrigger value="statistics" className="flex items-center gap-2 rounded-xl">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 h-auto p-3 bg-gray-50/80 dark:bg-gray-800/50 rounded-2xl">
+                <TabsTrigger value="statistics" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                   <BarChart3 className="w-4 h-4" />
                   <span className="hidden sm:inline">Статистика</span>
                 </TabsTrigger>
                 
                 {(isAdmin() || canManageLegal()) && (
                   <>
-                    <TabsTrigger value="leadership" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="leadership" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <Users className="w-4 h-4" />
                       <span className="hidden sm:inline">Керівництво</span>
                     </TabsTrigger>
-                    <TabsTrigger value="laws" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="laws" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <FileText className="w-4 h-4" />
                       <span className="hidden sm:inline">Закони</span>
                     </TabsTrigger>
-                    <TabsTrigger value="legal-school" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="legal-school" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <GraduationCap className="w-4 h-4" />
                       <span className="hidden sm:inline">Школа права</span>
                     </TabsTrigger>
-                    <TabsTrigger value="lawyers" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="lawyers" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <Scale className="w-4 h-4" />
                       <span className="hidden sm:inline">Адвокати</span>
                     </TabsTrigger>
@@ -109,39 +109,39 @@ const Admin = () => {
 
                 {(isAdmin() || canManageTenders()) && (
                   <>
-                    <TabsTrigger value="tenders" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="tenders" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <Briefcase className="w-4 h-4" />
                       <span className="hidden sm:inline">Тендери</span>
                     </TabsTrigger>
-                    <TabsTrigger value="tender-questions" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="tender-questions" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <HelpCircle className="w-4 h-4" />
                       <span className="hidden sm:inline">Питання</span>
                     </TabsTrigger>
-                    <TabsTrigger value="tender-responses" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="tender-responses" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <MessageCircleQuestion className="w-4 h-4" />
                       <span className="hidden sm:inline">Відповіді</span>
                     </TabsTrigger>
-                    <TabsTrigger value="enterprises" className="flex items-center gap-2 rounded-xl">
+                    <TabsTrigger value="enterprises" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                       <Building2 className="w-4 h-4" />
                       <span className="hidden sm:inline">Підприємства</span>
                     </TabsTrigger>
                   </>
                 )}
 
-                <TabsTrigger value="feedback" className="flex items-center gap-2 rounded-xl">
+                <TabsTrigger value="feedback" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                   <MessageSquare className="w-4 h-4" />
                   <span className="hidden sm:inline">Зворотний зв'язок</span>
                 </TabsTrigger>
 
                 {isAdmin() && (
-                  <TabsTrigger value="users" className="flex items-center gap-2 rounded-xl">
+                  <TabsTrigger value="users" className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105">
                     <Shield className="w-4 h-4" />
                     <span className="hidden sm:inline">Користувачі</span>
                   </TabsTrigger>
                 )}
               </TabsList>
 
-              <div className="p-6">
+              <div className="p-6 bg-white/50 dark:bg-gray-900/50 rounded-b-2xl">
                 <TabsContent value="statistics">
                   <AdminStatistics />
                 </TabsContent>
