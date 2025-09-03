@@ -12,7 +12,7 @@ import { Shield, Plus, Loader2, Trash2, Mail, User } from 'lucide-react';
 
 interface UserWithRoles {
   id: string;
-  email: string;
+  email?: string;
   roles: string[];
 }
 
@@ -21,7 +21,7 @@ export const AdminUserRoles = () => {
   const [users, setUsers] = useState<UserWithRoles[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
-    user_email: '',
+    user_id: '',
     role: 'law_manager',
   });
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -32,11 +32,6 @@ export const AdminUserRoles = () => {
 
   const fetchUsers = async () => {
     try {
-      // Fetch all users from auth.users
-      const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
-      
-      if (authError) throw authError;
-
       // Fetch user roles
       const { data: userRoles, error: rolesError } = await supabase
         .from('user_roles')
@@ -44,11 +39,17 @@ export const AdminUserRoles = () => {
 
       if (rolesError) throw rolesError;
 
-      // Combine users with their roles
-      const usersWithRoles = authUsers.users.map(user => ({
-        id: user.id,
-        email: user.email || '',
-        roles: userRoles?.filter(role => role.user_id === user.id).map(role => role.role) || []
+      // Group roles by user ID
+      const userRoleMap = new Map<string, string[]>();
+      userRoles?.forEach(userRole => {
+        const existingRoles = userRoleMap.get(userRole.user_id) || [];
+        userRoleMap.set(userRole.user_id, [...existingRoles, userRole.role]);
+      });
+
+      // Create users with their roles
+      const usersWithRoles = Array.from(userRoleMap.entries()).map(([userId, roles]) => ({
+        id: userId,
+        roles: roles
       }));
 
       setUsers(usersWithRoles);
@@ -68,19 +69,14 @@ export const AdminUserRoles = () => {
     e.preventDefault();
     
     try {
-      // Find user by email
-      const user = users.find(u => u.email === formData.user_email);
+      // Find user by ID
+      const user = users.find(u => u.id === formData.user_id);
       if (!user) {
-        toast({
-          title: 'Помилка',
-          description: 'Користувача з такою поштою не знайдено',
-          variant: 'destructive',
-        });
-        return;
+        // User doesn't exist in our records yet, but that's okay for new users
       }
 
       // Check if user already has this role
-      if (user.roles.includes(formData.role)) {
+      if (user && user.roles.includes(formData.role)) {
         toast({
           title: 'Помилка',
           description: 'Користувач вже має цю роль',
@@ -92,7 +88,7 @@ export const AdminUserRoles = () => {
       const { error } = await supabase
         .from('user_roles')
         .insert({
-          user_id: user.id,
+          user_id: formData.user_id,
           role: formData.role
         });
 
@@ -105,7 +101,7 @@ export const AdminUserRoles = () => {
 
       await fetchUsers();
       setDialogOpen(false);
-      setFormData({ user_email: '', role: 'law_manager' });
+      setFormData({ user_id: '', role: 'law_manager' });
     } catch (error) {
       console.error('Error adding role:', error);
       toast({
@@ -192,15 +188,15 @@ export const AdminUserRoles = () => {
             </DialogHeader>
             <form onSubmit={handleAddRole} className="space-y-4">
               <div className="form-field">
-                <Label htmlFor="user_email">Email користувача *</Label>
+                <Label htmlFor="user_id">ID користувача *</Label>
                 <Input
-                  id="user_email"
-                  type="email"
-                  value={formData.user_email}
-                  onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
+                  id="user_id"
+                  type="text"
+                  value={formData.user_id}
+                  onChange={(e) => setFormData({ ...formData, user_id: e.target.value })}
                   required
                   className="form-input"
-                  placeholder="user@example.com"
+                  placeholder="Введіть ID користувача"
                 />
               </div>
               
@@ -249,8 +245,8 @@ export const AdminUserRoles = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <Mail className="w-4 h-4 text-gray-500" />
-                      <CardTitle className="text-lg">{user.email}</CardTitle>
+                      <User className="w-4 h-4 text-gray-500" />
+                      <CardTitle className="text-lg">ID: {user.id}</CardTitle>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {user.roles.length === 0 ? (
