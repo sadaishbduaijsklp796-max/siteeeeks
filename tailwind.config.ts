@@ -73,7 +73,7 @@ export default {
         'soft': 'var(--shadow-soft)',
         'medium': 'var(--shadow-medium)',
         'glow': 'var(--shadow-glow)',
-        'colored': 'var(--shadow-colored)',
+       'colored': '0 4px 20px rgb(59 130 246 / 0.08)',
       },
       borderRadius: {
         lg: 'var(--radius)',

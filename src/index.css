@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* Modern Ukrainian colors - Light theme */
+  /* Modern clean colors */
   --primary: 220 13% 18%;
   --primary-foreground: 0 0% 98%;
   --primary-glow: 220 13% 35%;
@@ -19,7 +19,7 @@
   --accent-foreground: 220 9% 15%;
   
   /* Background & surfaces */
-  --background: 0 0% 100%;
+  --background: 0 0% 98%;
   --foreground: 220 9% 15%;
   --card: 0 0% 100%;
   --card-foreground: 220 9% 15%;
@@ -31,17 +31,16 @@
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
   
-  /* Ukrainian-inspired gradients */
+  /* Clean gradients */
   --gradient-primary: linear-gradient(135deg, hsl(220 13% 18%), hsl(220 13% 25%));
-  --gradient-hero: linear-gradient(135deg, hsl(220 14% 98%) 0%, hsl(50 100% 85%) 50%, hsl(220 14% 96%) 100%);
+  --gradient-hero: linear-gradient(135deg, hsl(0 0% 98%) 0%, hsl(220 14% 96%) 100%);
   --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14% 98%));
-  --gradient-glow: linear-gradient(135deg, hsl(50 100% 70%), hsl(210 100% 70%), hsl(280 100% 70%));
   
-  /* Enhanced shadows */
-  --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgb(0 0 0 / 0.05), 0 0 40px rgb(255 215 0 / 0.1);
-  --shadow-colored: 0 4px 20px rgb(0 123 255 / 0.15);
+  /* Soft shadows */
+  --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+  --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-glow: 0 0 20px rgb(0 0 0 / 0.03), 0 0 40px rgb(59 130 246 / 0.05);
+  --shadow-colored: 0 4px 20px rgb(59 130 246 / 0.08);
   
   /* Smooth transitions */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -50,7 +49,7 @@
 }
 
 .dark {
-  /* Modern Ukrainian colors - Dark theme */
+  /* Dark theme colors */
   --primary: 50 100% 70%;
   --primary-foreground: 220 13% 9%;
   --primary-glow: 50 100% 60%;
@@ -74,13 +73,12 @@
   --destructive: 0 63% 31%;
   --destructive-foreground: 0 0% 98%;
   
-  /* Enhanced dark gradients */
+  /* Dark gradients */
   --gradient-primary: linear-gradient(135deg, hsl(50 100% 70%), hsl(50 100% 60%));
   --gradient-hero: linear-gradient(135deg, hsl(220 13% 9%) 0%, hsl(220 13% 11%) 50%, hsl(220 13% 13%) 100%);
   --gradient-card: linear-gradient(145deg, hsl(220 13% 11%), hsl(220 13% 13%));
-  --gradient-glow: linear-gradient(135deg, hsl(50 100% 70%), hsl(210 100% 70%), hsl(280 100% 70%));
   
-  /* Enhanced dark shadows */
+  /* Dark shadows */
   --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
   --shadow-medium: 0 4px 15px -3px rgb(0 0 0 / 0.5), 0 2px 8px -2px rgb(0 0 0 / 0.3);
   --shadow-glow: 0 0 30px rgb(255 215 0 / 0.2), 0 0 60px rgb(255 215 0 / 0.1);
@@ -89,7 +87,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 98%;
     --foreground: 220 9% 15%;
 
     --card: 0 0% 100%;
@@ -180,22 +178,23 @@
   }
 }
 
-/* Custom utility classes for modern Ukrainian style */
+/* Custom utility classes */
 @layer utilities {
   .glass-effect {
-    @apply bg-background/80 backdrop-blur-sm border border-border/20;
+    @apply bg-white/80 backdrop-blur-md border border-gray-200/50;
   }
   
   .nav-pill {
-    @apply px-4 py-2 rounded-full bg-background/60 backdrop-blur-sm border border-border/20 shadow-soft transition-smooth hover:bg-background/80 hover:shadow-glow hover:scale-105;
+    @apply px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-gray-200/30 shadow-soft transition-all duration-300 hover:bg-white/80 hover:shadow-medium hover:scale-105;
   }
   
   .clean-card {
-    @apply bg-card/90 backdrop-blur-sm border border-border/50 rounded-2xl shadow-soft;
+    @apply bg-white/90 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-soft transition-all duration-300;
   }
   
   .clean-card:hover {
-    @apply shadow-colored -translate-y-1;
+    box-shadow: 0 8px 25px -5px rgb(59 130 246 / 0.1), 0 4px 10px -2px rgb(59 130 246 / 0.05);
+    transform: translateY(-2px);
   }
   
   .glow-on-hover {
@@ -205,25 +204,116 @@
   .glow-on-hover::before {
     content: '';
     @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none;
-    background: var(--gradient-glow);
+    background: linear-gradient(135deg, rgb(59 130 246 / 0.1), rgb(147 51 234 / 0.1));
     filter: blur(20px);
     z-index: -1;
   }
   
   .glow-on-hover:hover::before {
-    @apply opacity-20;
+    @apply opacity-100;
   }
   
   .hover-lift {
-    @apply transition-spring hover:-translate-y-2 hover:shadow-colored;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-medium;
   }
   
   .pulse-glow {
-    @apply animate-pulse;
-    filter: drop-shadow(0 0 10px hsl(var(--primary) / 0.3));
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
   }
   
   .transition-spring {
-    transition: var(--transition-spring);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
+}
+
+@keyframes pulse-glow {
+  0% {
+    filter: drop-shadow(0 0 5px hsl(220 13% 18% / 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 15px hsl(220 13% 18% / 0.6));
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .nav-pill {
+    @apply px-3 py-1.5 text-sm;
+  }
+}
+
+/* Admin panel specific styles */
+.admin-card {
+  @apply bg-white/95 backdrop-blur-sm border border-gray-200/50 rounded-xl shadow-soft transition-all duration-300;
+}
+
+.admin-card:hover {
+  @apply shadow-medium -translate-y-1;
+}
+
+.admin-header {
+  @apply bg-white/90 backdrop-blur-md border-b border-gray-200/50;
+}
+
+/* Form improvements */
+.form-field {
+  @apply space-y-2;
+}
+
+.form-input {
+  @apply rounded-xl border-gray-200/50 bg-white/80 backdrop-blur-sm transition-all duration-200 focus:shadow-medium focus:border-blue-300;
+}
+
+/* Button improvements */
+.btn-primary {
+  @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 hover:scale-105;
+}
+
+.btn-secondary {
+  @apply bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 hover:scale-105;
 }

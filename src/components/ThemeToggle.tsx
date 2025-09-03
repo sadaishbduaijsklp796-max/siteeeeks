@@ -24,7 +24,7 @@ export function ThemeToggle() {
         <Button
           variant="outline"
           size="sm"
-          className="rounded-full bg-background/60 backdrop-blur-sm border-border/50 hover:bg-background/80 hover:shadow-glow transition-all duration-300 hover:scale-105"
+          className="rounded-full bg-white/60 backdrop-blur-sm border-gray-200/30 hover:bg-white/80 hover:shadow-medium transition-all duration-300 hover:scale-105"
         >
           {theme === 'light' && <Sun className="h-4 w-4" />}
           {theme === 'dark' && <Moon className="h-4 w-4" />}
@@ -34,25 +34,25 @@ export function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 
-        className="min-w-[160px] bg-background/95 backdrop-blur-sm border-border/50 shadow-medium"
+        className="min-w-[160px] bg-white/95 backdrop-blur-sm border-gray-200/50 shadow-medium rounded-xl"
       >
         <DropdownMenuItem
           onClick={() => handleThemeChange('light')}
-          className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+          className="cursor-pointer hover:bg-gray-100/50 transition-colors duration-200 rounded-lg"
         >
           <Sun className="mr-2 h-4 w-4" />
           <span>Світла</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleThemeChange('dark')}
-          className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+          className="cursor-pointer hover:bg-gray-100/50 transition-colors duration-200 rounded-lg"
         >
           <Moon className="mr-2 h-4 w-4" />
           <span>Темна</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleThemeChange('system')}
-          className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+          className="cursor-pointer hover:bg-gray-100/50 transition-colors duration-200 rounded-lg"
         >
           <Monitor className="mr-2 h-4 w-4" />
           <span>Системна</span>

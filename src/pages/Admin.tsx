@@ -12,6 +12,8 @@ import { AdminEnterprises } from '@/components/admin/AdminEnterprises';
 import { AdminFeedback } from '@/components/admin/AdminFeedback';
 import { AdminStatistics } from '@/components/admin/AdminStatistics';
 import { AdminUserRoles } from '@/components/admin/AdminUserRoles';
+import { AdminTenderQuestions } from '@/components/admin/AdminTenderQuestions';
+import { AdminTenderResponses } from '@/components/admin/AdminTenderResponses';
 import { 
   Settings, 
   Users, 
@@ -22,7 +24,9 @@ import {
   Building2, 
   MessageSquare,
   BarChart3,
-  Shield
+  Shield,
+  HelpCircle,
+  MessageCircleQuestion
 } from 'lucide-react';
 
 const Admin = () => {
@@ -32,8 +36,9 @@ const Admin = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="text-center py-8">
-          <p>Завантаження...</p>
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <span className="ml-3 text-gray-600">Завантаження...</span>
         </div>
       </Layout>
     );
@@ -42,8 +47,12 @@ const Admin = () => {
   if (!isAdmin() && !canManageTenders() && !canManageLegal()) {
     return (
       <Layout>
-        <div className="text-center py-8">
-          <p>У вас немає доступу до адміністративної панелі.</p>
+        <div className="text-center py-12">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Shield className="w-8 h-8 text-red-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Доступ заборонено</h2>
+          <p className="text-gray-600">У вас немає доступу до адміністративної панелі.</p>
         </div>
       </Layout>
     );
@@ -53,45 +62,45 @@ const Admin = () => {
     <Layout>
       <div className="space-y-8">
         {/* Header */}
-        <section className="text-center space-y-4">
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow">
-              <Settings className="w-8 h-8 text-primary-foreground" />
+        <section className="text-center space-y-6 fade-in">
+          <div className="flex justify-center mb-4">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-medium pulse-glow">
+              <Settings className="w-8 h-8 text-white" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             Адміністративна панель
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Керування контентом та налаштуваннями сайту
           </p>
         </section>
 
         {/* Admin Tabs */}
-        <Card className="bg-gradient-card border-0 shadow-medium">
+        <Card className="clean-card scale-in">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-2 h-auto p-2">
-                <TabsTrigger value="statistics" className="flex items-center gap-2">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-1 h-auto p-2 bg-gray-50/50">
+                <TabsTrigger value="statistics" className="flex items-center gap-2 rounded-xl">
                   <BarChart3 className="w-4 h-4" />
                   <span className="hidden sm:inline">Статистика</span>
                 </TabsTrigger>
                 
                 {(isAdmin() || canManageLegal()) && (
                   <>
-                    <TabsTrigger value="leadership" className="flex items-center gap-2">
+                    <TabsTrigger value="leadership" className="flex items-center gap-2 rounded-xl">
                       <Users className="w-4 h-4" />
                       <span className="hidden sm:inline">Керівництво</span>
                     </TabsTrigger>
-                    <TabsTrigger value="laws" className="flex items-center gap-2">
+                    <TabsTrigger value="laws" className="flex items-center gap-2 rounded-xl">
                       <FileText className="w-4 h-4" />
                       <span className="hidden sm:inline">Закони</span>
                     </TabsTrigger>
-                    <TabsTrigger value="legal-school" className="flex items-center gap-2">
+                    <TabsTrigger value="legal-school" className="flex items-center gap-2 rounded-xl">
                       <GraduationCap className="w-4 h-4" />
                       <span className="hidden sm:inline">Школа права</span>
                     </TabsTrigger>
-                    <TabsTrigger value="lawyers" className="flex items-center gap-2">
+                    <TabsTrigger value="lawyers" className="flex items-center gap-2 rounded-xl">
                       <Scale className="w-4 h-4" />
                       <span className="hidden sm:inline">Адвокати</span>
                     </TabsTrigger>
@@ -100,24 +109,32 @@ const Admin = () => {
 
                 {(isAdmin() || canManageTenders()) && (
                   <>
-                    <TabsTrigger value="tenders" className="flex items-center gap-2">
+                    <TabsTrigger value="tenders" className="flex items-center gap-2 rounded-xl">
                       <Briefcase className="w-4 h-4" />
                       <span className="hidden sm:inline">Тендери</span>
                     </TabsTrigger>
-                    <TabsTrigger value="enterprises" className="flex items-center gap-2">
+                    <TabsTrigger value="tender-questions" className="flex items-center gap-2 rounded-xl">
+                      <HelpCircle className="w-4 h-4" />
+                      <span className="hidden sm:inline">Питання</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="tender-responses" className="flex items-center gap-2 rounded-xl">
+                      <MessageCircleQuestion className="w-4 h-4" />
+                      <span className="hidden sm:inline">Відповіді</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="enterprises" className="flex items-center gap-2 rounded-xl">
                       <Building2 className="w-4 h-4" />
                       <span className="hidden sm:inline">Підприємства</span>
                     </TabsTrigger>
                   </>
                 )}
 
-                <TabsTrigger value="feedback" className="flex items-center gap-2">
+                <TabsTrigger value="feedback" className="flex items-center gap-2 rounded-xl">
                   <MessageSquare className="w-4 h-4" />
                   <span className="hidden sm:inline">Зворотний зв'язок</span>
                 </TabsTrigger>
 
                 {isAdmin() && (
-                  <TabsTrigger value="users" className="flex items-center gap-2">
+                  <TabsTrigger value="users" className="flex items-center gap-2 rounded-xl">
                     <Shield className="w-4 h-4" />
                     <span className="hidden sm:inline">Користувачі</span>
                   </TabsTrigger>
@@ -153,6 +170,14 @@ const Admin = () => {
                   <>
                     <TabsContent value="tenders">
                       <AdminTenders />
+                    </TabsContent>
+
+                    <TabsContent value="tender-questions">
+                      <AdminTenderQuestions />
+                    </TabsContent>
+
+                    <TabsContent value="tender-responses">
+                      <AdminTenderResponses />
                     </TabsContent>
 
                     <TabsContent value="enterprises">
