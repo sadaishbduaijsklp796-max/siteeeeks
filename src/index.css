@@ -191,7 +191,11 @@
   }
   
   .clean-card {
-    @apply bg-card/90 backdrop-blur-sm border border-border/50 rounded-2xl shadow-soft hover:shadow-colored transition-spring hover:-translate-y-1;
+    @apply bg-card/90 backdrop-blur-sm border border-border/50 rounded-2xl shadow-soft transition-spring;
+  }
+  
+  .clean-card:hover {
+    @apply shadow-colored -translate-y-1;
   }
   
   .glow-on-hover {
